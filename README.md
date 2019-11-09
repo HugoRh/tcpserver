@@ -1,4 +1,4 @@
-# dellabetta/tcpserver
+# hrhein/tcpserver
 Alpine-based image with just tcpserver by D. J. Bernstein (https://cr.yp.to/ucspi-tcp/tcpserver.html).
 
 Inspired by https://github.com/appropriate/docker-nc.
@@ -10,9 +10,12 @@ Patch by LFS (http://www.linuxfromscratch.org/patches/blfs/5.0/ucspi-tcp-0.88-er
 Forked from fdellabetta/tcpserver
 
 ## Notes
-I needed a simple tcpserver to test settings of traefik tcp ingress on kubernetes (running on raspeberry pie)
+I needed a simple tcpserver to test settings of traefik tcp ingress on kubernetes (running on raspeberry pie).
+
 From original:
  - I updated  Dockerfile with a staged build (image went from 75MB to 4.63MB ) 
+ - Use Alpine latest instead of 3.6
+ - Reserved for arm-based server ( because of COPY --from=build /lib/ld-musl-armhf.so.1 /lib/ )
  - Chose only tcpserver binary to be included
  - hardcoded the arguments passed to tcpserver
 
@@ -87,5 +90,5 @@ Data-gathering options:
     
 Examples:
 
-$ docker run -it -p 5678:5678 --rm hrhein/tcpserver 0 5678 echo 5678
+$ docker run -it -p 5678:5678 --rm hrhein/tcpserver
 ```
