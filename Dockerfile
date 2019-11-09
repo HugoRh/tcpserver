@@ -1,7 +1,8 @@
-FROM alpine:3.6
+# build stage
+# ========================
+FROM alpine:latest as build
 
 COPY ucspi-tcp-0.88.tar.gz ucspi-tcp-0.88.errno.patch /tmp/
-COPY entrypoint.sh /tmp/
 WORKDIR /tmp
 
 RUN apk --update add gcc musl-dev make && rm -rf /var/cache/apk/*
@@ -13,6 +14,13 @@ RUN tar xvzf ucspi-tcp-0.88.tar.gz && \
     mv -f conf-home~ conf-home && \
     make && \
     make setup check
+	
+# ===========================
+FROM alpine:latest as run
+
+COPY entrypoint.sh /tmp/
+	
+COPY --from=build /usr/bin/tcpserver /usr/bin/
+COPY --from=build /lib/ld-musl-armhf.so.1 /lib/
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
-CMD ["tcpserver"]

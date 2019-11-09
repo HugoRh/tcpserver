@@ -7,11 +7,20 @@ Source code by D. J. Bernstein (https://cr.yp.to/ucspi-tcp/tcpserver.html).
 
 Patch by LFS (http://www.linuxfromscratch.org/patches/blfs/5.0/ucspi-tcp-0.88-errno.patch)
 
+Forked from fdellabetta/tcpserver
+
+## Notes
+I needed a simple tcpserver to test settings of traefik tcp ingress on kubernetes (running on raspeberry pie)
+From original:
+ - I updated  Dockerfile with a staged build (image went from 75MB to 4.63MB ) 
+ - Chose only tcpserver binary to be included
+ - hardcoded the arguments passed to tcpserver
+
 ## Usage manual
 
 ```console
 Usage:
-$ docker run -it --rm dellabetta/tcpserver opts host port prog
+$ docker run -it --rm hrhein/tcpserver 
 
 opts is a series of getopt-style options. host is one argument. port is one argument. 
 prog consists of one or more arguments. tcpserver waits for connections from TCP clients. 
@@ -78,11 +87,5 @@ Data-gathering options:
     
 Examples:
 
-$ docker run -it -p 5678:5678 --rm dellabetta/tcpserver 0 5678 echo 5678
+$ docker run -it -p 5678:5678 --rm hrhein/tcpserver 0 5678 echo 5678
 ```
-
-## License
-
-Copyright © 2017 Filippo Della Betta
-
-All contents licensed under the [MIT License](LICENSE)
