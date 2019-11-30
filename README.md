@@ -15,7 +15,6 @@ I needed a simple tcpserver to test settings of traefik tcp ingress on kubernete
 From original:
  - I updated  Dockerfile with a staged build (image went from 75MB to 4.63MB ) 
  - Use Alpine latest instead of 3.6
- - Reserved for arm-based server ( because of COPY --from=build /lib/ld-musl-armhf.so.1 /lib/ )
  - Chose only tcpserver binary to be included
  - hardcoded the arguments passed to tcpserver
 

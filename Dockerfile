@@ -21,6 +21,6 @@ FROM alpine:latest as run
 COPY entrypoint.sh /tmp/
 	
 COPY --from=build /usr/bin/tcpserver /usr/bin/
-COPY --from=build /lib/ld-musl-armhf.so.1 /lib/
+COPY --from=build /lib/ld-musl-*.so.1 /lib/
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
